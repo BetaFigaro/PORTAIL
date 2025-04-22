@@ -1,0 +1,471 @@
+/* Styles généraux */
+body {
+    background-color: black;
+    background-image: url(../images/fondbeamng.jpg);
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+.center-content {
+    text-align: center;
+}
+
+/*----------------------------------------------------------------------------------------------------------------------------------------------------------*/
+/* Style du bouton */
+.bouton {
+    background-color: #4CAF50; /* Couleur de fond */
+    color: white;             /* Couleur du texte */
+    padding: 10px 20px;       /* Espace intérieur */
+    font-size: 16px;          /* Taille du texte */
+    border: none;             /* Pas de bordure */
+    border-radius: 5px;       /* Coins arrondis */
+    cursor: pointer;          /* Curseur en forme de main */
+    transition: background-color 0.3s ease; /* Animation au survol */
+}
+.bouton-deco {
+    background-color: #f44336; /* Couleur de fond */
+    color: white;             /* Couleur du texte */
+    padding: 10px 20px;       /* Espace intérieur */
+    font-size: 16px;          /* Taille du texte */
+    border: none;             /* Pas de bordure */
+    border-radius: 5px;       /* Coins arrondis */
+    cursor: pointer;          /* Curseur en forme de main */
+    transition: background-color 0.3s ease; /* Animation au survol */
+}
+.bouton-retour {
+    background-color: #196ce0; /* Couleur de fond */
+    color: white;             /* Couleur du texte */
+    padding: 10px 20px;       /* Espace intérieur */
+    font-size: 16px;          /* Taille du texte */
+    border: none;             /* Pas de bordure */
+    border-radius: 5px;       /* Coins arrondis */
+    cursor: pointer;          /* Curseur en forme de main */
+    transition: background-color 0.3s ease; /* Animation au survol */
+}
+.bouton.rouge {
+    background-color: red;
+    color: white;
+    font-weight: bold;
+    margin-top: 10px;
+}
+.center-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; /* Pour empiler les éléments */
+    margin-top: 20px; /* Ajuste la marge */
+}
+
+.bouton-crea {
+    background-color: #196ce0;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    width: fit-content;
+    display: block; /* Permet d'utiliser margin auto */
+    margin: 10px auto; /* Centre le bouton horizontalement */
+    text-decoration: none; /* Enlève le soulignement du lien */
+}
+
+
+/* Style bouton admin */
+.admin-buttons {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.admin-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    height: 45px;
+    padding: 0;
+    margin: 0;
+    background-color: #4762b5;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.admin-button.red {
+    background-color: #e53935;
+}
+/*----------------------------------------------------------------------------------------------------------------------------------------------------------*/
+/* Style pour l'index avec champs de connection */
+input[type="text"],
+input[type="password"] {
+    width: 250px; /* Réduire la largeur */
+    height: 40px; /* Ajuster la hauteur */
+    text-align: center; /* Centrer le texte */
+    margin: 10px auto; /* Espacement autour des champs */
+    display: block; /* Centrer en utilisant le bloc */
+    border: 1px solid #ccc; /* Bordure grise */
+    border-radius: 5px; /* Coins arrondis */
+    font-size: 16px; /* Taille de police confortable */
+}
+/* centrage du Texte dans les balises <p> */
+p {
+    text-align: center; /* Centrer les lignes de texte */
+    margin: 10px 0; /* Marges entre les lignes */
+    color: white; /* Couleur du texte */
+}
+/* Couleur de la bordure et du fond au focus */
+input[type="text"]:focus,
+input[type="password"]:focus {
+    border-color: #4CAF50; /* Bordure verte au focus */
+    outline: none; /* Supprime le contour bleu par défaut */
+    background-color: #f9f9f9; /* Fond légèrement plus clair */
+}
+
+
+/*affichage mdp stylé*/
+.password-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 250px; /* même taille que ton input */
+}
+
+.password-wrapper input {
+  font-family: inherit;
+  font-size: 16px;
+  padding: 10px;
+  height: 40px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.toggle-password {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  height: 20px;
+  width: 20px;
+  fill: #555;
+}
+
+/*----------------------------------------------------------------------------------------------------------------------------------------------------------*/
+
+/*Styles interface administrateur*/
+.header {
+    text-align: center;
+    padding: 20px;
+    color: white;
+}
+.footer {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+
+/* Affichage bdd */
+.content {
+    display: grid;  /* Utilisation de Grid pour une disposition plus flexible */
+    grid-template-columns: 65% auto; /* 65% pour la table, 35% pour la partie droite */
+    gap: 20px; /* Espace entre les éléments */
+    padding: 20px;
+}
+.table-container {
+    background-color: #f5f5f5; /* Fond clair pour le tableau */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /*display: flex;
+    justify-content: center;*/
+}
+table {
+    width: 100%;
+    max-width:100%;
+    border-collapse: collapse;
+    background-color: #ffffff; /* Fond clair pour les cellules */
+    color: #333333; /* Texte en couleur sombre pour contraste */
+}
+table th, table td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+}
+table th {
+    background-color: #e0e0e0;
+    font-weight: bold;
+}
+h2 {
+    margin-bottom: 20px;
+    color: #333333; /* Titre du tableau en couleur sombre */
+}
+/* Contenu à droite */
+.right-container {
+    margin: 0 auto;
+    width: 300px; 
+    background-color: #f5f5f5; /* Fond pour la section à droite */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+/* Espacement des boutons dans le conteneur */
+.button-group button {
+    display: block; /* S'assure que chaque bouton prend toute la largeur de son parent */
+    margin-bottom: 10px; /* Espacement entre les boutons */
+    width: 100%; 
+}
+
+/* Rendre le bouton delete transparent */
+.delete-button {
+    background-color: transparent; /* Fond transparent */
+    border: none;                 /* Pas de bordure */
+    padding: 0;                   /* Retirer les marges intérieures */
+    cursor: pointer;              /* Curseur pointeur pour le clic */
+}
+.delete-button img {
+    display: block; /* Supprime les espaces blancs autour de l'image */
+}
+/* Rendre le bouton edit transparent */
+.modify-button {
+    background-color: transparent; /* Fond transparent */
+    border: none;                 /* Pas de bordure */
+    padding: 0;                   /* Retirer les marges intérieures */
+    cursor: pointer;              /* Curseur pointeur pour le clic */
+}
+.modify-button img {
+    display: block; /* Supprime les espaces blancs autour de l'image */
+}
+
+/* Container ajout utilisateur */
+.right-container {
+    width: 350px; 
+    background-color: #f5f5f5; /* Fond pour la section à droite */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Style pour le champ email */
+input[type="email"] {
+    width: 250px; /* S'adapte à la largeur de son conteneur */
+    padding: 10px; /* Espace intérieur */
+    margin: 10px 0; /* Espace extérieur */
+    border: 1px solid #ccc; /* Bordure grise */
+    border-radius: 5px; /* Coins arrondis */
+    font-size: 16px; /* Taille du texte */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Légère ombre */
+    transition: all 0.3s ease; /* Animation pour les interactions */
+}
+
+/* Effet sur le champ email au survol et en focus */
+input[type="email"]:focus {
+    border-color: #007BFF; /* Bordure bleue */
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.5); /* Ombre bleutée */
+    outline: none; /* Supprime la bordure par défaut */
+}
+
+/* Style pour le menu déroulant */
+select {
+    width: 80%; /* S'adapte à la largeur de son conteneur */
+    padding: 10px; /* Espace intérieur */
+    margin: 10px 0; /* Espace extérieur */
+    border: 1px solid #ccc; /* Bordure grise */
+    border-radius: 5px; /* Coins arrondis */
+    font-size: 16px; /* Taille du texte */
+    background-color: #fff; /* Fond blanc */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Légère ombre */
+    transition: all 0.3s ease; /* Animation pour les interactions */
+}
+
+/* Effet sur le menu déroulant au survol et en focus */
+select:hover, select:focus {
+    border-color: #007BFF; /* Bordure bleue */
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.5); /* Ombre bleutée */
+    outline: none; /* Supprime la bordure par défaut */
+    cursor: pointer; /* Change le curseur */
+}
+
+/*bouton ajouter*/
+button[type="submit"] {
+    background-color: #4CAF50; /* Vert */
+    color: white; /* Texte blanc */
+    border: none; /* Supprime les bordures */
+    border-radius: 5px; /* Coins arrondis */
+    padding: 10px 20px; /* Espacement interne */
+    font-size: 16px; /* Taille de la police */
+    cursor: pointer; /* Change le curseur en main */
+    transition: background-color 0.3s ease; /* Animation sur hover */
+}
+
+/*affichage des 5 dernier logs*/
+.log-preview table {
+    width: 100%;
+    color: white;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+.log-preview th, .log-preview td {
+    border: 1px solid #555;
+    padding: 8px;
+    text-align: left;
+}
+.log-preview th {
+    background-color: #333;
+}
+
+
+.log-container {
+    grid-column: 1; /* Prend la 1ère colonne dans la grid comme table-container */
+    background-color: #f5f5f5;
+    padding: 20px;
+    margin-top: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    color: #333;
+    
+}
+
+.log-container h2 {
+    color: #333;
+}
+
+.log-container table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    color: #333;
+}
+
+.log-container th,
+.log-container td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+}
+
+.log-container th {
+    background-color: #e0e0e0;
+    font-weight: bold;
+}
+
+/* Permet au conteneur log de s'étaler sur toute la largeur de la grid */
+.log-container.full-width {
+    grid-column: 1 / -1; /* ? s’étend sur toutes les colonnes de la grid */
+}
+
+
+/*affichage page logs*/
+.log-body {
+    display: block !important;
+    height: auto !important;
+    align-items: unset !important;
+    justify-content: unset !important;
+}
+
+.log-page-container {
+            padding: 30px;
+            max-width: 1200px;
+            margin: auto;
+        }
+.search-input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+.log-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    color: #333;
+}
+.log-table th, .log-table td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+}
+.log-table th {
+    background-color: #e0e0e0;
+    cursor: pointer;
+}
+h1 {
+    text-align: center;
+    color: white;
+    margin-bottom: 30px;
+}
+
+/*----------------------------------------------------------------------------------------------------------------------------------------------------------*/
+
+
+
+
+/* Responsive Styles */
+@media only screen and (max-width: 600px) {
+    /* Ajuste la taille des polices pour les petits écrans */
+    font {
+        font-size: 24px; /* Réduit la taille du texte sur les petits écrans */
+    }
+
+    /* Bouton Admin devient plus large et lisible sur mobile */
+    .admin-button {
+        width: 12%; 
+        font-size: 14px; /* Ajuste la taille de la police du bouton */
+        padding: 14px;
+    }
+
+    /* Bouton ouverture devient plus large et plus adapté aux écrans mobiles */
+    button.bouton {
+        width: 90%; /* Ajuste la largeur du bouton d'ouverture pour qu'il soit responsive */
+        font-size: 18px; /* Ajuste la taille de la police pour une meilleure lisibilité */
+        padding: 15px;
+    }
+
+    /* Ajuste les éléments texte et autres en fonction de l'écran */
+    .center-content {
+        padding: 10px;
+    }
+    .bouton-deco {
+    padding: 10px 20px;       /* Espace intérieur */
+    font-size: 16px;          /* Taille du texte */
+    
+    /* Conteneur pour regrouper les boutons */
+    .button-stack {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        width: 100%;
+    }
+
+    .button-stack .bouton {
+        width: 90%;
+        font-size: 18px;
+        padding: 15px;
+    }
+}
+
+}
+
+
+/*Styles supplémentaires pour s'assurer que le fond et la disposition sont toujours agréables */
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}

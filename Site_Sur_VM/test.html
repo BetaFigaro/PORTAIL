@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Test Particules Full</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      background: black;
+    }
+    #particles-js {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+    h1 {
+      position: relative;
+      z-index: 1;
+      color: white;
+      text-align: center;
+      margin-top: 40vh;
+      font-family: sans-serif;
+    }
+  </style>
+</head>
+<body>
+  <div id="particles-js"></div>
+  <h1>Test Particules Interactives</h1>
+
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <script>
+    particlesJS("particles-js", {
+      particles: {
+        number: { value: 90 },
+        size: { value: 4 },
+        color: { value: "#ffffff" },
+        line_linked: {
+          enable: true,
+          distance: 200,
+          color: "#ffffff",
+          opacity: 0.4,
+          width: 3
+        },
+        move: { enable: true, speed: 2 }
+      },
+      interactivity: {
+        detect_on: "canvas",
+        events: {
+          onhover: {
+            enable: true,
+            mode: "grab"
+          },
+          onclick: {
+            enable: true,
+            mode: "push"
+          }
+        },
+        modes: {
+          grab: {
+            distance: 200,
+            line_linked: {
+              opacity: 0.8
+            }
+          },
+          push: {
+            quantity: 4
+          }
+        }
+      },
+      retina_detect: true
+    });
+  </script>
+</body>
+</html>
