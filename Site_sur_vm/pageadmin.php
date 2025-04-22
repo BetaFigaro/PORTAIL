@@ -1,44 +1,44 @@
 <?php
-session_start(); // Démarrer la session pour récupérer les informations de l'utilisateur
+// Projet PORTAIL - Codé par Rafael
+// Fichier : pageadmin.php
+// Cette page affiche l'interface d'administration principale du portail.
+// Elle vérifie que l'utilisateur est bien connecté et admin, gère l'inactivité et permet de déclencher
+// des actions via MQTT (ouverture/fermeture), ainsi que la déconnexion.
 
-// Vérifier si l'utilisateur est connecté
+session_start(); // Démarre la session pour accéder aux variables de session
+require_once 'utils.php'; // Inclusion des fonctions utilitaires
+
+// Vérifie si l'utilisateur est connecté
 if (!isset($_SESSION['username'])) {
-    // Si l'utilisateur n'est pas connecté, rediriger vers la page de connexion
-    header('Location: login.php');
+    header('Location: index.php'); // Redirige vers login si non connecté
     exit;
 }
 
-// Vérifier si l'utilisateur est administrateur via la variable "is_admin"
+// Vérifie que l'utilisateur est bien administrateur
 if (!isset($_SESSION['is_admin']) || $_SESSION['is_admin'] !== true) {
-    // Si l'utilisateur n'est pas administrateur, rediriger vers la page utilisateur par exemple
-    header('Location: pageuser.php');
+    header('Location: pageuser.php'); // Redirige vers interface utilisateur si pas admin
     exit;
 }
 
-// Gestion de la déconnexion
+// Déconnexion si bouton "logout" cliqué
 if (isset($_POST['logout'])) {
-    // Supprimer toutes les variables de session
-    session_unset();
-    // Détruire la session
-    session_destroy();
-    // Rediriger vers la page de connexion après la déconnexion        
-    header('Location: index.php');
+    session_unset();    // Supprime toutes les variables de session
+    session_destroy();  // Détruit la session
+    header('Location: index.php'); // Retour à la page de connexion
     exit;
 }
 
-// Temps d'inactivité maximal (en secondes)
-$timeout_duration = 900; // 15 minutes = 900 secondes
+// Gère l'expiration automatique après 15 minutes d'inactivité
+$timeout_duration = 900;
 
-// Vérifier si la variable de session pour l'heure de dernière activité existe
 if (isset($_SESSION['last_activity']) && (time() - $_SESSION['last_activity']) > $timeout_duration) {
-    // Si le temps d'inactivité est supérieur au délai, déconnecter l'utilisateur
-    session_unset();
-    session_destroy();
-    header("Location: index.php"); // Rediriger vers la page d'accueil
+    session_unset(); // Supprime toutes les variables de session
+    session_destroy(); // Détruit la session
+    header("Location: index.php"); // Retour à la page de connexion
     exit();
 }
 
-// Mettre à jour l'heure de dernière activité
+// Met à jour l'horodatage de la dernière activité
 $_SESSION['last_activity'] = time();
 ?>
 
@@ -46,53 +46,54 @@ $_SESSION['last_activity'] = time();
 <html>
 <head>
     <title>Gestion du Portail</title>
-    <!-- gestion accent -->
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"> <!-- Support des accents -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- lien fichier css -->
-    <link rel="stylesheet" type="text/css" href="../CSS/styles.css"> 
+    <link rel="stylesheet" type="text/css" href="../CSS/styles.css"> <!-- Lien vers le CSS -->
 </head>
 <body>
-    <!-- Bouton Admin -->
-    <a href="./admin/indexadmin.php" class="admin-button">Admin</a> 
-    
-    <div class="center-content">
-        <font face="arial" size="7" color="WHITE">
-        <b>
-            GESTION DU PORTAIL
-        </b>
-        </font>
+
+    <!-- Boutons d accès rapide admin -->
+    <div class="admin-buttons">
+        <a href="./admin/indexadmin.php" class="admin-button">Interface Administrateur</a>
+        <button class="admin-button red" onclick="publication_FORCAGE_FERMETURE()">Forcer FERMETURE</button>
     </div>
-    
+
+    <!-- Titre principal -->
+    <div class="center-content">
+        <font face="arial" size="7" color="WHITE"><b>GESTION DU PORTAIL</b></font>
+    </div>
+
+    <!-- Bouton d'ouverture du portail + affichage de l'état -->
     <div class="center-content">
         <font face="arial" size="6" color="WHITE">
-        <br> 
-        <!-- Bouton Ouverture portail -->
+        <br>
         <?php
+        // Génère le bouton d'ouverture
         echo '<button class="bouton" onclick="publication_OUVERTURE()">OUVERTURE DU PORTAIL</button>';
         ?>
-        <p id="etat" style="color: white;"> <br> Etat : FERMER</p>
+        <p id="etat" style="color: white;"><br> Etat : FERMER</p>
         </font>
     </div>
 
-    <!-- Bouton de déconnexion -->
+    <!-- Formulaire de déconnexion -->
     <form method="post" action="">
         <br>
-        <button type="submit" name="logout" class="bouton-deco" style="background-color: #f44336;">Déconnexion</button> 
+        <button type="submit" name="logout" class="bouton-deco" style="background-color: #f44336;">Déconnexion</button>
     </form>
 
-    <!-- Script MQTT -->
-    <script src="/JS/mqtt.min.js"></script>  
+    <!-- Scripts de gestion MQTT -->
+    <script>
+    const CLE = "<?= $_SESSION['cle'] ?? '' ?>";
+    </script>
+    <script src="/JS/mqtt.min.js"></script>
     <script type="text/javascript">
-        // Vérifie si la bibliothèque mqtt est correctement chargée
+        // Vérifie si mqtt.min.js est bien chargé
         if (typeof mqtt === 'undefined') {
             console.error("La bibliothèque mqtt.min.js n'est pas chargée !");
-        } else {
-            //console.log("La bibliothèque mqtt.min.js est chargée :", mqtt);
         }
 
-        // Options de connexion
-        const connectUrl = 'ws://projet.betacorps.ovh:9001';
+        // Configuration du client MQTT
+        const connectUrl = 'wss://mqtt.projet.betacorps.ovh';
         const clientId = 'mqttjs_' + Math.random().toString(16).substr(2, 8);
 
         const options = {
@@ -105,51 +106,79 @@ $_SESSION['last_activity'] = time();
             connectTimeout: 4000,
             will: {
                 topic: 'WillMsg',
-                payload: 'Connection Closed abnormally..! ',
+                payload: 'Connection Closed abnormally..!',
                 qos: 0,
                 retain: false
             },
-            username: 'portail',
-            password: 'Cu2kscd#bpF'
+            username: 'portail-read',
+            password: '8AZDhOoUfQdz'
         };
 
         // Connexion au broker MQTT
         const client = mqtt.connect(connectUrl, options);
 
-        // Gestion des événements du client
+        // Reconnexion automatique
         client.on('reconnect', (error) => {
             console.log('Reconnexion en cours :', error);
         });
 
+        // Gestion des erreurs de connexion
         client.on('error', (error) => {
             console.error('Échec de la connexion :', error);
         });
 
-        client.on('connect', () => {
-            //console.log('Client connecté :', clientId);
-            // Abonnement au topic
-            client.subscribe('portail/status', { qos: 0 }, (err) => {
-                if (!err) {
-                    //console.log('Abonné au topic portail/status');
-                } else {
-                    console.error('Erreur lors de l’abonnement :', err);
-                }
-            });
+        // Une fois connecté, s'abonne au topic pour suivre l'état du portail
+        const topicEtat = `portail/${CLE}/action`;
+
+        client.subscribe(topicEtat, { qos: 0 }, (err) => {
+            if (err) {
+                console.error('Erreur lors de l’abonnement :', err);
+            } else {
+                console.log('Abonné au topic :', topicEtat);
+            }
         });
 
+        // Affiche l'état du portail reçu via MQTT
         client.on('message', (topic, message) => {
-            console.log('Message reçu :', topic, message.toString());
             document.getElementById("etat").innerHTML = "Etat : " + message.toString();
         });
 
-        // Fonctions de publication
+        // Fonction pour publier une commande d'ouverture
         function publication_OUVERTURE() {
-            client.publish('portail/status', 'OUVERTURE', { qos: 0, retain: false }, (err) => {
-                if (err) {
-                    console.error('Erreur lors de la publication :', err);
+            fetch("/publish/publish.php", {
+                method: "POST",
+                credentials: "same-origin"
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log("Commande envoyée au portail.");
                 } else {
-                    console.log('Message publié : Portail en cours d ouverture');
+                    console.error("Erreur HTTP :", response.status);
                 }
+            })
+            .catch(error => {
+                console.error("Erreur réseau :", error);
+            });
+        }
+
+        // Fonction pour forcer la fermeture du portail
+        function publication_FORCAGE_FERMETURE() {
+            if (!confirm("⚠️ Es-tu sûr de vouloir forcer la fermeture du portail ?")) return;
+
+            fetch("/publish/publish_force_fermer.php", {
+                method: "POST",
+                credentials: "same-origin"
+            })
+            .then(response => response.text().then(txt => {
+                if (!response.ok) {
+                    console.error("Erreur HTTP :", response.status);
+                } else {
+                    alert("Commande envoyée : Forçage de fermeture");
+                }
+            }))
+            .catch(error => {
+                console.error("Erreur réseau :", error);
+                alert("Erreur lors de l'envoi !");
             });
         }
     </script>

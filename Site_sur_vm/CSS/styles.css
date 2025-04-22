@@ -42,6 +42,12 @@ body {
     cursor: pointer;          /* Curseur en forme de main */
     transition: background-color 0.3s ease; /* Animation au survol */
 }
+.bouton.rouge {
+    background-color: red;
+    color: white;
+    font-weight: bold;
+    margin-top: 10px;
+}
 .center-container {
     display: flex;
     justify-content: center;
@@ -67,20 +73,37 @@ body {
 
 
 /* Style bouton admin */
-.admin-button {
+.admin-buttons {
     position: absolute;
     top: 10px;
     right: 10px;
-    background-color: #4762b5; /* BLEU */
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    font-size: 14px;
-    border-radius: 5px;
-    cursor: pointer;
-    text-decoration: none; /* Pas de soulignement */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
+.admin-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    height: 45px;
+    padding: 0;
+    margin: 0;
+    background-color: #4762b5;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.admin-button.red {
+    background-color: #e53935;
+}
 /*----------------------------------------------------------------------------------------------------------------------------------------------------------*/
 /* Style pour l'index avec champs de connection */
 input[type="text"],
@@ -108,51 +131,37 @@ input[type="password"]:focus {
     background-color: #f9f9f9; /* Fond légèrement plus clair */
 }
 
-/*----------------------------------------------------------------------------------------------------------------------------------------------------------*/
-/* Styles de la popup */
-.popup {
-    display: none;
-    position: fixed;
-    z-index: 999;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    padding: 20px;
-    background-color: #f9f9f9;
-    border: 1px solid #888;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    width: 300px;
-    text-align: center;
-    color: #333;
-}
-.popup p {
-    color: #333; 
-}
-.popup button {
-    padding: 10px 20px;
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-}
-.popup button:hover {
-    background-color: #0056b3;
+
+/*affichage mdp stylé*/
+.password-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 250px; /* même taille que ton input */
 }
 
-/* Fond semi-transparent derrière la popup */
-.popup-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: none; /* Caché par défaut */
-    z-index: 998; /* Pour qu'il soit sous la popup */
+.password-wrapper input {
+  font-family: inherit;
+  font-size: 16px;
+  padding: 10px;
+  height: 40px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.toggle-password {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  height: 20px;
+  width: 20px;
+  fill: #555;
 }
 
 /*----------------------------------------------------------------------------------------------------------------------------------------------------------*/
+
 /*Styles interface administrateur*/
 .header {
     text-align: center;
@@ -204,6 +213,7 @@ h2 {
 }
 /* Contenu à droite */
 .right-container {
+    margin: 0 auto;
     width: 300px; 
     background-color: #f5f5f5; /* Fond pour la section à droite */
     padding: 20px;
@@ -299,7 +309,104 @@ button[type="submit"] {
     transition: background-color 0.3s ease; /* Animation sur hover */
 }
 
+/*affichage des 5 dernier logs*/
+.log-preview table {
+    width: 100%;
+    color: white;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+.log-preview th, .log-preview td {
+    border: 1px solid #555;
+    padding: 8px;
+    text-align: left;
+}
+.log-preview th {
+    background-color: #333;
+}
 
+
+.log-container {
+    grid-column: 1; /* Prend la 1ère colonne dans la grid comme table-container */
+    background-color: #f5f5f5;
+    padding: 20px;
+    margin-top: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    color: #333;
+    
+}
+
+.log-container h2 {
+    color: #333;
+}
+
+.log-container table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    color: #333;
+}
+
+.log-container th,
+.log-container td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+}
+
+.log-container th {
+    background-color: #e0e0e0;
+    font-weight: bold;
+}
+
+/* Permet au conteneur log de s'étaler sur toute la largeur de la grid */
+.log-container.full-width {
+    grid-column: 1 / -1; /* ? s’étend sur toutes les colonnes de la grid */
+}
+
+
+/*affichage page logs*/
+.log-body {
+    display: block !important;
+    height: auto !important;
+    align-items: unset !important;
+    justify-content: unset !important;
+}
+
+.log-page-container {
+            padding: 30px;
+            max-width: 1200px;
+            margin: auto;
+        }
+.search-input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+.log-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    color: #333;
+}
+.log-table th, .log-table td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+}
+.log-table th {
+    background-color: #e0e0e0;
+    cursor: pointer;
+}
+h1 {
+    text-align: center;
+    color: white;
+    margin-bottom: 30px;
+}
 
 /*----------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
@@ -334,12 +441,27 @@ button[type="submit"] {
     .bouton-deco {
     padding: 10px 20px;       /* Espace intérieur */
     font-size: 16px;          /* Taille du texte */
+    
+    /* Conteneur pour regrouper les boutons */
+    .button-stack {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        width: 100%;
+    }
+
+    .button-stack .bouton {
+        width: 90%;
+        font-size: 18px;
+        padding: 15px;
+    }
 }
 
 }
 
 
-/* Styles supplémentaires pour s'assurer que le fond et la disposition sont toujours agréables */
+/*Styles supplémentaires pour s'assurer que le fond et la disposition sont toujours agréables */
 body {
     display: flex;
     flex-direction: column;
